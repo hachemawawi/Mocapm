@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAPM® Exam Simulator | 150 Authentic PMBOK Questions</title>
+  <meta name="description" content="Dynamic, interactive CAPM Mock Exam Simulator with 150 authentic questions, domain-level performance breakdown, PMBOK 7th edition explanations, and EVM formula cheat sheets.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Navigation Bar -->
+    <header class="navbar" role="banner">
+      <div class="brand-section">
+        <div class="brand-icon">
+          <span>CAPM</span>
+        </div>
+        <div class="brand-titles">
+          <h1>PMI CAPM® Exam Simulator</h1>
+          <span class="subtitle">150 Questions • ECO &amp; PMBOK® 7th Edition Aligned</span>
+        </div>
+      </div>
+
+      <!-- Center Live Stats -->
+      <div class="nav-center-stats" id="navCenterStats">
+        <div class="stat-pill">
+          <span>Question:</span>
+          <strong id="statCurrentNum">1</strong>
+          <span>/</span>
+          <strong id="statTotalNum">150</strong>
+        </div>
+        <div class="stat-pill">
+          <span>Answered:</span>
+          <strong id="statAnsweredNum">0</strong>
+        </div>
+        <div class="stat-pill">
+          <span>Flagged:</span>
+          <strong id="statFlaggedNum">0</strong>
+        </div>
+        <div class="timer-box" id="timerBox">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span id="timerDisplay">03:00:00</span>
+        </div>
+      </div>
+
+      <!-- Top Action Buttons -->
+      <div class="nav-actions">
+        <button class="btn btn-start" id="btnStartExam" title="Start the timed exam">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" id="startExamIcon">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          <span id="startExamBtnText">Start Exam</span>
+        </button>
+
+        <button class="btn btn-secondary" id="btnOpenFormulas" title="Open EVM Formulas Sheet">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+          <span>EVM Formulas</span>
+        </button>
+
+        <button class="btn btn-danger" id="btnResetExam" title="Reset all answers and timer">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="1 4 1 10 7 10"></polyline>
+            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+          </svg>
+          <span>Reset</span>
+        </button>
+
+        <button class="btn btn-success" id="btnFinishExam" title="Submit exam for scoring">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>Submit Exam</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Domain Filters Toolbar -->
+    <div class="toolbar" role="region" aria-label="Domain Filters">
+      <div class="domain-filters-group" id="domainFiltersGroup">
+        <button class="filter-chip active" data-filter="all">All Domains (150)</button>
+        <button class="filter-chip" data-filter="agile">Agile Frameworks (43)</button>
+        <button class="filter-chip" data-filter="predictive">Predictive (44)</button>
+        <button class="filter-chip" data-filter="fundamentals">Fundamentals (40)</button>
+        <button class="filter-chip" data-filter="ba">Business Analysis (23)</button>
+        <button class="filter-chip" data-filter="diagrams">Diagrams (35)</button>
+        <button class="filter-chip" data-filter="flagged">Flagged (<span id="filterFlaggedCount">0</span>)</button>
+      </div>
+    </div>
+
+    <!-- Main Workspace Area -->
+    <main class="main-layout" role="main">
+      <!-- Question Section -->
+      <section class="question-card" id="questionCard" aria-live="polite">
+        <!-- Question Meta Header -->
+        <div class="q-meta-bar">
+          <div class="q-badge-row">
+            <span class="badge-num" id="qBadgeNum">Question 1</span>
+            <span class="badge-domain domain-agile" id="qBadgeDomain">Agile Frameworks/Methodologies</span>
+            <span class="badge-multichoice" id="qBadgeMulti" style="display: none;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 11 12 14 22 4"></polyline>
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+              </svg>
+              Choose 2 answers
+            </span>
+          </div>
+
+          <button class="btn btn-flag" id="btnToggleFlag" title="Flag this question to review later">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>
+              <line x1="4" y1="22" x2="4" y2="15"></line>
+            </svg>
+            <span id="flagBtnText">Flag Question</span>
+          </button>
+        </div>
+
+        <!-- Scenario Dialogue Box (Dynamic for Questions 27-29, 37-38, 139-140) -->
+        <div class="scenario-box" id="scenarioContainer" style="display: none;">
+          <div class="scenario-header">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span>Scenario Dialogue</span>
+          </div>
+          <div class="scenario-lines" id="scenarioLines"></div>
+        </div>
+
+        <!-- Diagram Graphic Box (Dynamic for 35 Questions) -->
+        <div class="diagram-container" id="diagramContainer" style="display: none;">
+          <div class="diagram-image-wrapper" id="diagramWrapper" title="Click to view full size diagram">
+            <img src="" alt="Question Diagram" id="diagramImg" class="diagram-img">
+          </div>
+          <div class="diagram-zoom-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              <line x1="11" y1="8" x2="11" y2="14"></line>
+              <line x1="8" y1="11" x2="14" y2="11"></line>
+            </svg>
+            <span>Click diagram to enlarge / zoom</span>
+          </div>
+        </div>
+
+        <!-- Question Text -->
+        <h2 class="q-title" id="qTitle">Question loading...</h2>
+
+        <!-- Options Container -->
+        <div class="options-list" id="optionsList" role="radiogroup" aria-label="Question Options">
+          <!-- Dynamically populated options -->
+        </div>
+
+        <!-- Practice Mode Instant Explanation -->
+        <div class="explanation-card" id="explanationCard">
+          <div class="explanation-header">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            <span>PMBOK® &amp; Agile Guide Explanation</span>
+          </div>
+          <p class="explanation-body" id="explanationText"></p>
+        </div>
+
+        <!-- Question Footer Controls -->
+        <div class="q-footer-controls">
+          <button class="btn btn-secondary" id="btnPrevQ">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            <span>Previous</span>
+          </button>
+
+          <div class="nav-buttons-cluster">
+            <button class="btn btn-ghost" id="btnClearAnswer">Clear Selection</button>
+            <button class="btn btn-primary" id="btnNextQ">
+              <span>Next</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sidebar: Palette Navigator & Tools -->
+      <aside class="sidebar-panel" aria-label="Question Navigator and Tools">
+        <div class="palette-card">
+          <div class="palette-header">
+            <h3>Question Navigator</h3>
+            <span class="stat-pill" style="padding: 2px 8px; font-size: 0.75rem;">
+              <span id="navProgressPct">0%</span>
+            </span>
+          </div>
+          
+          <div class="palette-progress-bar">
+            <div class="palette-progress-fill" id="paletteProgressBar"></div>
+          </div>
+
+          <div class="palette-grid" id="paletteGrid" role="navigation" aria-label="Jump to question">
+            <!-- 147 grid items rendered dynamically -->
+          </div>
+
+          <div class="palette-legend">
+            <div class="legend-item">
+              <span class="legend-dot unattempted"></span>
+              <span>Unattempted</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot answered"></span>
+              <span>Answered</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot flagged"></span>
+              <span>Flagged</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-dot current"></span>
+              <span>Current</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Help & Shortcuts -->
+        <div class="tools-card">
+          <div style="font-size: 0.85rem; font-weight: 700; color: #cbd5e1; display: flex; align-items: center; gap: 0.4rem;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+              <path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M8 12h8M6 16h.01M10 16h.01M14 16h.01M18 16h.01"></path>
+            </svg>
+            <span>Keyboard Shortcuts</span>
+          </div>
+          <div style="font-size: 0.78rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.35rem;">
+            <div><kbd style="background: rgba(255,255,255,0.08); padding: 1px 5px; border-radius: 4px; font-family: monospace;">A-D</kbd> or <kbd style="background: rgba(255,255,255,0.08); padding: 1px 5px; border-radius: 4px; font-family: monospace;">1-4</kbd> : Select Option</div>
+            <div><kbd style="background: rgba(255,255,255,0.08); padding: 1px 5px; border-radius: 4px; font-family: monospace;">N</kbd> / <kbd style="background: rgba(255,255,255,0.08); padding: 1px 5px; border-radius: 4px; font-family: monospace;">→</kbd> : Next Question</div>
+            <div><kbd style="background: rgba(255,255,255,0.08); padding: 1px 5px; border-radius: 4px; font-family: monospace;">P</kbd> / <kbd style="background: rgba(255,255,255,0.08); padding: 1px 5px; border-radius: 4px; font-family: monospace;">←</kbd> : Previous Question</div>
+            <div><kbd style="background: rgba(255,255,255,0.08); padding: 1px 5px; border-radius: 4px; font-family: monospace;">F</kbd> : Flag / Unflag</div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Modals -->
+
+    <!-- EVM Formulas Cheat Sheet Modal -->
+    <div class="modal-overlay" id="modalFormulas" role="dialog" aria-modal="true" aria-labelledby="formulasTitle">
+      <div class="modal-dialog">
+        <div class="modal-header">
+          <div class="modal-title" id="formulasTitle">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </svg>
+            <span>CAPM® Key Formulas &amp; EVM Cheat Sheet</span>
+          </div>
+          <button class="modal-close" id="btnCloseFormulas" aria-label="Close modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <table class="formula-table">
+            <thead>
+              <tr>
+                <th>Metric / Concept</th>
+                <th>Formula</th>
+                <th>Interpretation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Cost Variance (CV)</td>
+                <td><span class="formula-code">EV - AC</span></td>
+                <td>&gt; 0 Under budget, &lt; 0 Over budget</td>
+              </tr>
+              <tr>
+                <td>Schedule Variance (SV)</td>
+                <td><span class="formula-code">EV - PV</span></td>
+                <td>&gt; 0 Ahead of schedule, &lt; 0 Behind</td>
+              </tr>
+              <tr>
+                <td>Cost Performance Index (CPI)</td>
+                <td><span class="formula-code">EV / AC</span></td>
+                <td>&gt; 1.0 Cost efficient, &lt; 1.0 Cost overrun</td>
+              </tr>
+              <tr>
+                <td>Schedule Performance Index (SPI)</td>
+                <td><span class="formula-code">EV / PV</span></td>
+                <td>&gt; 1.0 Ahead of schedule, &lt; 1.0 Behind</td>
+              </tr>
+              <tr>
+                <td>Estimate at Completion (EAC)</td>
+                <td><span class="formula-code">BAC / CPI</span></td>
+                <td>Current cost performance is expected to continue</td>
+              </tr>
+              <tr>
+                <td>Estimate to Complete (ETC)</td>
+                <td><span class="formula-code">EAC - AC</span></td>
+                <td>How much more money is needed to finish</td>
+              </tr>
+              <tr>
+                <td>Variance at Completion (VAC)</td>
+                <td><span class="formula-code">BAC - EAC</span></td>
+                <td>Projected surplus or shortfall at project end</td>
+              </tr>
+              <tr>
+                <td>To-Complete PI (TCPI)</td>
+                <td><span class="formula-code">(BAC - EV) / (BAC - AC)</span></td>
+                <td>Cost performance required to meet target BAC</td>
+              </tr>
+              <tr>
+                <td>PERT Beta Estimate</td>
+                <td><span class="formula-code">(O + 4M + P) / 6</span></td>
+                <td>Weighted 3-point estimate</td>
+              </tr>
+              <tr>
+                <td>Standard Deviation (&sigma;)</td>
+                <td><span class="formula-code">(P - O) / 6</span></td>
+                <td>Estimate variance / dispersion</td>
+              </tr>
+              <tr>
+                <td>Float / Slack</td>
+                <td><span class="formula-code">LS - ES</span> or <span class="formula-code">LF - EF</span></td>
+                <td>Critical path float = 0</td>
+              </tr>
+              <tr>
+                <td>Communication Channels</td>
+                <td><span class="formula-code">N &times; (N - 1) / 2</span></td>
+                <td>N = total number of project stakeholders</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Image Lightbox Modal -->
+    <div class="modal-overlay" id="modalLightbox" role="dialog" aria-modal="true" aria-label="Diagram Lightbox">
+      <div class="lightbox-content">
+        <button class="modal-close" id="btnCloseLightbox" style="align-self: flex-end; margin-bottom: 8px; font-size: 2rem; color: #fff;">&times;</button>
+        <img src="" alt="Enlarged Diagram" id="lightboxImg" class="lightbox-img">
+      </div>
+    </div>
+
+    <!-- Submit Exam Confirmation Modal -->
+    <div class="modal-overlay" id="modalSubmitConfirm" role="dialog" aria-modal="true" aria-labelledby="submitTitle">
+      <div class="modal-dialog" style="max-width: 520px;">
+        <div class="modal-header">
+          <div class="modal-title" id="submitTitle">Submit Exam for Scoring?</div>
+          <button class="modal-close" id="btnCloseSubmitConfirm">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p style="color: #cbd5e1; font-size: 0.95rem;">Are you sure you want to finalize your exam session?</p>
+          <div style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.875rem;">
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: var(--text-muted);">Total Questions:</span>
+              <strong>150</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: var(--text-muted);">Answered:</span>
+              <strong id="confirmAnswered">0</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: var(--text-muted);">Unanswered:</span>
+              <strong id="confirmUnanswered" style="color: #fb7185;">150</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span style="color: var(--text-muted);">Flagged for Review:</span>
+              <strong id="confirmFlagged" style="color: #fcd34d;">0</strong>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1rem;">
+            <button class="btn btn-secondary" id="btnCancelSubmit">Return to Exam</button>
+            <button class="btn btn-success" id="btnConfirmSubmit">Yes, Finalize &amp; Score</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Final Score & Performance Report Modal -->
+    <div class="modal-overlay" id="modalResults" role="dialog" aria-modal="true" aria-labelledby="resultsTitle">
+      <div class="modal-dialog" style="max-width: 820px;">
+        <div class="modal-header">
+          <div class="modal-title" id="resultsTitle">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="8" r="7"></circle>
+              <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+            </svg>
+            <span>CAPM® Examination Performance Report</span>
+          </div>
+          <button class="modal-close" id="btnCloseResults">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="results-hero">
+            <div class="score-circle pass" id="resultScoreCircle">
+              <span class="pct" id="resultScorePct">0%</span>
+              <span class="label">Overall Score</span>
+            </div>
+            <span class="pass-status-pill pass" id="resultPassStatus">PASS - TARGET</span>
+            <p style="color: var(--text-muted); font-size: 0.875rem;" id="resultSummaryText">
+              You answered 105 out of 150 questions correctly. (Passing threshold is 70%).
+            </p>
+          </div>
+
+          <h4 style="font-size: 1rem; font-weight: 700; color: #f1f5f9; margin-top: 0.5rem;">
+            Performance by CAPM Examination Domain
+          </h4>
+
+          <div class="domain-scores-grid" id="domainScoresGrid">
+            <!-- Populated via app.js -->
+          </div>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-subtle);">
+            <button class="btn btn-secondary" id="btnRetakeExam">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="1 4 1 10 7 10"></polyline>
+                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+              </svg>
+              <span>Retake Exam</span>
+            </button>
+            <div style="display: flex; gap: 0.75rem;">
+              <button class="btn btn-secondary" id="btnPrintReport">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                  <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                  <rect x="6" y="14" width="12" height="8"></rect>
+                </svg>
+                <span>Print / Save Report</span>
+              </button>
+              <button class="btn btn-primary" id="btnReviewIncorrect">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                <span>Review Incorrect Answers</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
